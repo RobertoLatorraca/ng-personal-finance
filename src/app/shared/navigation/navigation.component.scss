@@ -1,0 +1,16 @@
+nav {
+    background: var(--navigation-bg-color);
+    width: var(--navigation-width);
+}
+
+.brand h1 i {
+    color: var(--title-logo-color);
+}
+
+.nav ul li {
+    @apply py-3;
+}
+
+.nav ul li i {
+    @apply mr-5;
+}
