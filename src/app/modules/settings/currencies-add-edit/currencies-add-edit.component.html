@@ -1,0 +1,77 @@
+<loading *ngIf="isLoading"></loading>
+
+<div *ngIf="!isLoading"
+class="min-h-min w-full md:w-4/5 lg:w-1/2 mb-5 p-6 rounded shadow shadow-slate-400 bg-white">
+    <div class="mb-10 text-2xl font-bold">
+        <div *ngIf="!isEditMode">Add currency</div>
+        <div *ngIf="isEditMode">Edit currency</div>
+    </div>
+
+    <form [formGroup]="currencyForm" (ngSubmit)="onSubmit()">
+
+        <div class="font-bold text-lg mb-2">
+            <label for="country">Country</label>
+        </div>
+        <select formControlName="country"
+            class="mb-1 w-full block bg-slate-200 text-slate-700 border rounded py-3 px-3 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
+            [class.not-valid]="!currencyForm.controls['country'].valid && isEditMode"
+            id="country"
+            aria-describedby="countryHelp"
+            (ngModelChange)="onSelectCountryChange($event)">
+            <option *ngFor="let country of countryList" [ngValue]="country">{{country.name.official}}</option>
+        </select>
+        <div id="countryHelp" class="mb-3 text-sm text-slate-600">
+            <span [class.has-errors]="currencyForm.controls['country'].hasError('required') && isEditMode">* The field is required.</span><br>
+        </div>
+
+        <div class="font-bold text-lg mb-2">
+            <label for="currency">Currency</label>
+        </div>
+        <select formControlName="currency"
+            class="mb-1 w-full block bg-slate-200 text-slate-700 border rounded py-3 px-3 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
+            [class.not-valid]="currencyForm.hasError('currencyRequired') && isEditMode"
+            id="currency"
+            aria-describedby="currencyHelp">
+            <option *ngFor="let currency of currencyList" [ngValue]="currency">{{currency.code}} - {{currency.name}} ({{currency.symbol}})</option>
+        </select>
+        <div id="currencyHelp" class="mb-3 text-sm text-slate-600">
+            <span [class.has-errors]="currencyForm.controls['currency'].hasError('required') && isEditMode">* The field is required.</span><br>
+        </div>
+
+        <div class="font-bold text-lg mb-2">
+            <label for="rate">Exchange Rate</label>
+        </div>
+        <input formControlName="rate"
+            type="text"
+            class="mb-1 w-full appearance-none block bg-slate-200 text-slate-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
+            [class.not-valid]="!currencyForm.controls['rate'].valid && isEditMode"
+            id="rate"
+            placeholder="eg. 1.20"
+            aria-describedby="rateHelp">
+        <div id="rateHelp" class="mb-3 text-sm text-slate-600">
+            <span [class.has-errors]="currencyForm.controls['rate'].hasError('required') && isEditMode">* The field is required.</span><br>
+            Make sure you don't add a currency that already exists.
+        </div>
+
+        <div *ngIf="isEditMode">
+            <div class="font-bold text-lg mb-2">
+                <label for="status">Status</label>
+            </div>
+            <label class="relative inline-block w-16 h-8">
+                <input formControlName="enabled" type="checkbox" class="opacity-0 w-0 h-0">
+                <span class="slider"></span>
+                <div class="absolute top-1 left-20 cursor-pointer">
+                    <span *ngIf="currencyForm.value.enabled">ENABLED</span>
+                    <span *ngIf="!currencyForm.value.enabled">DISABLED</span>
+                </div>
+            </label>            
+        </div>
+
+        <button 
+            type="submit"
+            [disabled]="!currencyForm.valid || currencyForm.pristine"
+            class="py-3 px-4 mt-7 w-full text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
+            <i class="fas fa-save mr-2"></i>Save currency
+        </button>
+    </form>
+</div>

@@ -1,10 +1,6 @@
 nav {
-    background: var(--navigation-bg-color);
+    background: var(--navigation-background-color);
     width: var(--navigation-width);
-}
-
-.brand h1 i {
-    color: var(--title-logo-color);
 }
 
 .nav ul li {
@@ -13,4 +9,12 @@ nav {
 
 .nav ul li i {
     @apply mr-5;
+}
+
+.nav ul li ul {
+    @apply mt-3;
+}
+
+.nav ul li ul li {
+    @apply ml-10;
 }

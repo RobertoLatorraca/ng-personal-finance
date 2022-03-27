@@ -1,0 +1,11 @@
+<div class="mb-5">
+    <loading *ngIf="isLoading"></loading>
+    <app-table *ngIf="!isLoading"
+        [title]="title"
+        [columns]="columns"
+        [data]="data"
+        [addButton]="true"
+        [editButton]="true"
+        [addButtonUrl]="'/settings/payees/add'">
+    </app-table>
+</div>

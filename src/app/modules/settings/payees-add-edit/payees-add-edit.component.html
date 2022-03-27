@@ -1,0 +1,34 @@
+<loading *ngIf="isLoading"></loading>
+
+<div *ngIf="!isLoading"
+    class="min-h-min w-full md:w-4/5 lg:w-1/2 mb-5 p-6 rounded shadow shadow-slate-400 bg-white">
+    <div class="mb-10 text-2xl font-bold">
+        <div *ngIf="!isEditMode">Add payee</div>
+        <div *ngIf="isEditMode">Edit payee</div>
+    </div>
+
+    <form [formGroup]="payeeForm" (ngSubmit)="onSubmit()">
+        <div class="font-bold text-lg mb-2">
+            <label for="name">Name</label>
+        </div>
+        <input formControlName="name"
+            type="text"
+            class="mb-1 w-full appearance-none block bg-slate-200 text-slate-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
+            [class.not-valid]="!payeeForm.controls['name'].valid && isEditMode"
+            id="name"
+            placeholder="eg. Edenor"
+            aria-describedby="nameHelp">
+        <div id="nameHelp" class="mb-3 text-sm text-slate-600">
+            <span [class.has-errors]="payeeForm.controls['name'].hasError('required') && isEditMode">* The field is required.</span><br>
+            <span [class.has-errors]="payeeForm.controls['name'].hasError('minlength') && isEditMode">* Minimum length 6 characters.</span><br>
+            Make sure you don't add a payee that already exists.
+        </div>
+
+        <button 
+            type="submit"
+            [disabled]="!payeeForm.valid || payeeForm.pristine"
+            class="py-3 px-4 mt-7 w-full text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
+            <i class="fas fa-save mr-2"></i>Save payee
+        </button>
+    </form>
+</div>

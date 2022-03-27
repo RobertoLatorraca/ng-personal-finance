@@ -1,0 +1,12 @@
+table th,
+table td {
+    @apply py-3;
+}
+
+table tbody tr {
+    @apply border-t border-slate-400;
+}
+
+table tbody tr:hover {
+    @apply bg-slate-100;
+}

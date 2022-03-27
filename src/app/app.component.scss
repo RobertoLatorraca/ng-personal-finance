@@ -1,0 +1,11 @@
+._content-position {
+    position: absolute;
+    width: calc(100% - var(--navigation-width));
+    left: var(--navigation-width);
+}
+
+._main-height {
+    position: absolute;
+    min-height: calc(100% - var(--topbar-height));
+    top: var(--topbar-height);
+}

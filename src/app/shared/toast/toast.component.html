@@ -1,0 +1,22 @@
+<div class="absolute top-5 right-5 z-50 w-11/12 sm:w-3/5 md:w-1/2 lg:w-1/3 xl:w-1/4">
+    <div *ngFor="let toast of toasts"
+        class="flex mb-3 min-h-min border border-solid rounded-md fadeInUp {{cssClass(toast)}}">
+        <div class="px-3 self-center text-3xl">
+            <span [ngSwitch]="toast.type">
+                <i *ngSwitchCase="toastType.Success" class="fas fa-check-circle"></i>
+                <i *ngSwitchCase="toastType.Error" class="fas fa-times-circle"></i>
+                <i *ngSwitchCase="toastType.Info" class="fas fa-info-circle"></i>
+                <i *ngSwitchCase="toastType.Warning" class="fas fa-exclamation-triangle"></i>
+            </span>
+        </div>
+        <div class="grow py-6 text-center">
+            {{toast.message}}
+        </div>
+        <div class="flex-none text-xl px-2">
+            <a class="cursor-pointer" (click)="removeToast(toast)">
+                <span><i class="fas fa-times"></i></span>
+            </a>
+        </div>
+    </div>
+</div>
+
