@@ -34,7 +34,7 @@ export class CurrencyService {
   }
 
   public update(currency: Currency): Observable<Currency> {
-    return this.http.put(Url.CURRENCIES, currency)
+    return this.http.put(Url.CURRENCIES + '/' + currency.id, currency)
       .pipe(
         map(resp => resp as Currency)
       );

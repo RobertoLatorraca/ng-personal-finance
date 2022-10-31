@@ -12,6 +12,8 @@ import { ToastService } from 'src/app/shared/toast/toast.service';
 })
 export class BanksAddEditComponent implements OnInit {
 
+  isLoading: boolean = true;
+
   bankForm = new FormGroup({
     name: new FormControl('', [
       Validators.required,
@@ -37,8 +39,11 @@ export class BanksAddEditComponent implements OnInit {
           this.bankForm.patchValue(resp);
           this.bank = resp;
         },
+        complete: () => this.isLoading = false,
         error: (err: any) => this.router.navigate(['../../'], { relativeTo: this.route })
       });
+    } else {
+      this.isLoading = false;
     }
   }
 

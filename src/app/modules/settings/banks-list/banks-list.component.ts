@@ -18,7 +18,7 @@ export class BanksListComponent implements OnInit {
   ];
   data: any[] = [];
 
-  constructor(private bankService: BankService, public toastService: ToastService) { }
+  constructor(private bankService: BankService, private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.bankService.findAll().subscribe({

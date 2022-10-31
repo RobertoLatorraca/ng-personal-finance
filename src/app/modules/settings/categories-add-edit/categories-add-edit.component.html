@@ -1,0 +1,76 @@
+<loading *ngIf="isLoading"></loading>
+
+<div *ngIf="!isLoading"
+class="min-h-min w-full md:w-4/5 lg:w-1/2 mb-5 p-6 rounded shadow shadow-slate-400 bg-white">
+    <div class="mb-10 text-2xl font-bold">
+        <div *ngIf="!isEditMode">Add category</div>
+        <div *ngIf="isEditMode">Edit category</div>
+    </div>
+
+    <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+        <div class="font-bold text-lg mb-2">
+            <label for="name">Name</label>
+        </div>
+        <input formControlName="name"
+            type="text"
+            class="mb-1 w-full appearance-none block bg-slate-200 text-slate-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
+            [class.not-valid]="!categoryForm.controls['name'].valid && isEditMode"
+            id="name"
+            placeholder="eg. Automovil"
+            aria-describedby="nameHelp">
+        <div id="nameHelp" class="mb-3 text-sm text-slate-600">
+            <span [class.has-errors]="categoryForm.controls['name'].hasError('required') && isEditMode">* The field is required.</span><br>
+            <span [class.has-errors]="categoryForm.controls['name'].hasError('minlength') && isEditMode">* Minimum length 6 characters.</span><br>
+            Make sure you don't add a category that already exists.
+        </div>
+
+        <div class="font-bold text-lg mb-2">
+            <label for="parentCategory">Parent Category</label>
+        </div>
+        <select formControlName="parentCategory"
+            class="mb-1 w-full block bg-slate-200 text-slate-700 border rounded py-3 px-3 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
+            [class.not-valid]="!categoryForm.controls['parentCategory'].valid && isEditMode"
+            id="parentCategory"
+            aria-describedby="parentCategoryHelp">
+            <option [ngValue]=null>Without parent Category</option>
+            <option *ngFor="let parent of parentCategoryList" [ngValue]="parent">{{parent.name}}</option>
+        </select>
+        <div id="parentCategoryHelp" class="mb-3 text-sm text-slate-600">
+            <span>* The field is optional.</span>
+        </div>
+
+        <div class="font-bold text-lg mb-2">
+            <label for="type">Description</label>
+        </div>
+        <textarea formControlName="description"
+            class="mb-1 w-full h-24 block bg-slate-200 text-slate-700 border rounded py-3 px-3 leading-tight focus:outline-none focus:bg-white focus:border-slate-500 resize-none"
+            name="description"
+            placeholder="eg. Gastos de Automovil"
+            aria-describedby="descriptionHelp">
+        </textarea>
+        <div id="descriptionHelp" class="mb-3 text-sm text-slate-600">
+            <span [class.has-errors]="categoryForm.controls['description'].hasError('required') && isEditMode">* The field is required.</span><br>
+        </div>
+
+        <div *ngIf="isEditMode">
+            <div class="font-bold text-lg mb-2">
+                <label for="status">Status</label>
+            </div>
+            <label class="relative inline-block w-16 h-8">
+                <input formControlName="enabled" type="checkbox" class="opacity-0 w-0 h-0">
+                <span class="slider"></span>
+                <div class="absolute top-1 left-20 cursor-pointer">
+                    <span *ngIf="categoryForm.value.enabled">ENABLED</span>
+                    <span *ngIf="!categoryForm.value.enabled">DISABLED</span>
+                </div>
+            </label>            
+        </div>
+
+        <button 
+            type="submit"
+            [disabled]="!categoryForm.valid || categoryForm.pristine"
+            class="py-3 px-4 mt-7 w-full text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
+            <i class="fas fa-save mr-2"></i>Save category
+        </button>
+    </form>
+</div>

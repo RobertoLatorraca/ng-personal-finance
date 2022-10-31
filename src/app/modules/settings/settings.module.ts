@@ -10,6 +10,11 @@ import { LoadingModule } from 'src/app/shared/loading/loading.module';
 import { CurrenciesAddEditComponent } from './currencies-add-edit/currencies-add-edit.component';
 import { PayeesListComponent } from './payees-list/payees-list.component';
 import { PayeesAddEditComponent } from './payees-add-edit/payees-add-edit.component';
+import { TagsListComponent } from './tags-list/tags-list.component';
+import { TagsAddEditComponent } from './tags-add-edit/tags-add-edit.component';
+import { CategoriesListComponent } from './categories-list/categories-list.component';
+import { CategoriesAddEditComponent } from './categories-add-edit/categories-add-edit.component';
+import { AccountsListComponent } from './accounts-list/accounts-list.component';
 
 
 
@@ -21,7 +26,12 @@ import { PayeesAddEditComponent } from './payees-add-edit/payees-add-edit.compon
     CurrenciesListComponent,
     CurrenciesAddEditComponent,
     PayeesListComponent,
-    PayeesAddEditComponent
+    PayeesAddEditComponent,
+    TagsListComponent,
+    TagsAddEditComponent,
+    CategoriesListComponent,
+    CategoriesAddEditComponent,
+    AccountsListComponent
   ],
   imports: [
     CommonModule,

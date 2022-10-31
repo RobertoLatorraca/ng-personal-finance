@@ -30,7 +30,7 @@ export class PayeeService {
   }
 
   public update(payee: Payee): Observable<Payee> {
-    return this.http.put(Url.PAYEES, payee).pipe(
+    return this.http.put(Url.PAYEES + '/' + payee.id, payee).pipe(
       map(resp => resp as Payee)
     );
   }

@@ -1,4 +1,7 @@
-<div class="min-h-min w-full md:w-4/5 lg:w-1/2 mb-5 p-6 rounded shadow shadow-slate-400 bg-white">
+<loading *ngIf="isLoading"></loading>
+
+<div *ngIf="!isLoading"
+    class="min-h-min w-full md:w-4/5 lg:w-1/2 mb-5 p-6 rounded shadow shadow-slate-400 bg-white">
     <div class="mb-10 text-2xl font-bold">
         <div *ngIf="!isEditMode">Add bank</div>
         <div *ngIf="isEditMode">Edit bank</div>

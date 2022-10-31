@@ -34,7 +34,7 @@ export class BankService {
   }
 
   public update(bank: Bank): Observable<Bank> {
-    return this.http.put(Url.BANKS, bank)
+    return this.http.put(Url.BANKS + '/' + bank.id, bank)
       .pipe(
         map(resp => resp as Bank)
       );

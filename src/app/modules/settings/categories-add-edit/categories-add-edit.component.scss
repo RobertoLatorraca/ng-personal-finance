@@ -1,0 +1,50 @@
+button:disabled {
+    cursor: not-allowed;
+    @apply text-slate-500;
+}
+
+.slider {
+    @apply
+        absolute
+        top-0
+        cursor-pointer
+        bottom-0
+        right-0
+        left-0
+        bg-red-600
+        duration-300
+        rounded-3xl;
+}
+
+.slider:before {
+    content: "";
+    @apply
+        absolute
+        h-6
+        w-6
+        left-1
+        bottom-1
+        bg-white
+        rounded-full
+        duration-300;
+}
+
+input:checked + .slider {
+    @apply bg-green-600;
+}
+
+input:checked + .slider:before {
+    @apply translate-x-8;
+}
+
+.not-valid {
+    @apply bg-red-200;
+}
+
+.not-valid:focus {
+    @apply border-red-500 bg-white
+}
+
+.has-errors {
+    @apply text-red-700
+}
