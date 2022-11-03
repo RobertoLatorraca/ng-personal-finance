@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AccountsModule } from './modules/accounts/accounts.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
-import { SettingsModule } from './modules/settings/settings.module';
 
 const routes: Routes = [
 
   {
     path: 'dashboard',
     loadChildren: () => DashboardModule
+  },
+  {
+    path: 'accounts',
+    loadChildren: () => AccountsModule
   },
   {
     path: 'settings',
