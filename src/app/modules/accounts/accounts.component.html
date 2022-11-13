@@ -1,1 +1,11 @@
-<p>accounts works!</p>
+<div class="mb-5">
+    <loading *ngIf="isLoading"></loading>
+    <div *ngIf="!isLoading">
+        <div class="font-bold text-2xl mb-5">Bank accounts</div>
+        <div class="grid grid-cols-6 gap-x-8">
+            <app-cards *ngFor="let account of accounts" [account]="account" class="h-72"></app-cards>
+        </div>        
+    </div>
+    <div class="font-bold text-2xl mb-5">Credit card accounts</div>
+    <div class="font-bold text-2xl mb-5">Wallet & Investment accounts</div>
+</div>

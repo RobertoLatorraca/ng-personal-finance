@@ -10,5 +10,8 @@ export class Account {
     cbu!: string;
     accountNumber!: string;
     alias!: string;
+    creditCardBrand!: string;
+	creditCardNumber!: string;
+	expiration!: Date;
     enabled!: any;
 }

@@ -1,0 +1,18 @@
+<div class="flex flex-col min-h-full w-full p-6 rounded shadow shadow-slate-400 bg-white hover:bg-slate-100">
+    <div class="flex flex-row items-start">
+        <div class="grow font-bold mr-3">{{account.account}} ({{account.currency.symbol}}) {{account.currency.code}}</div>
+        <div class="flex-none text-3xl">
+            <i *ngIf="account.accountType == 'BANK'" class="fas fa-landmark"></i>
+            <i *ngIf="account.accountType == 'CASH'" class="fas fa-wallet"></i>
+            <i *ngIf="account.accountType == 'CREDIT_CARD' && account.creditCardBrand == 'VISA'" class="fab fa-cc-visa"></i>
+            <i *ngIf="account.accountType == 'CREDIT_CARD' && account.creditCardBrand == 'MASTERCARD'" class="fab fa-cc-mastercard"></i>
+            <i *ngIf="account.accountType == 'CREDIT_CARD' && account.creditCardBrand == 'AMEX'" class="fab fa-cc-amex"></i>
+        </div>
+    </div>
+    <div *ngFor="let balance of account.balance" class="text-4xl font-bold my-3">
+        {{balance.balance | currency : balance.currency.symbol + " "}} <span class="text-lg">{{balance.currency.code}}</span>
+    </div>
+    <div *ngIf="account.accountType == 'BANK' || account.accountType == 'CREDIT_CARD'" class="">{{account.bank.name}}</div>
+    <div *ngIf="account.accountType == 'CREDIT_CARD'" class="">{{account.creditCardNumber}}</div>
+    <div *ngIf="account.accountType == 'BANK'" class="">{{account.accountNumber}}</div>
+</div>
