@@ -52,6 +52,20 @@ class="min-h-min w-full md:w-4/5 lg:w-1/2 mb-5 p-6 rounded shadow shadow-slate-4
             <span [class.has-errors]="categoryForm.controls['description'].hasError('required') && isEditMode">* The field is required.</span><br>
         </div>
 
+        <div class="font-bold text-lg mb-2">
+            <label for="categoryGroup">Category Group</label>
+        </div>
+        <select formControlName="categoryGroup"
+            class="mb-1 w-full block bg-slate-200 text-slate-700 border rounded py-3 px-3 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
+            [class.not-valid]="!categoryForm.controls['categoryGroup'].valid && isEditMode"
+            id="categoryGroup"
+            aria-describedby="categoryGroupHelp">
+            <option *ngFor="let group of categoryGroups" [ngValue]="group">{{group}}</option>
+        </select>
+        <div id="categoryGroupHelp" class="mb-3 text-sm text-slate-600">
+            <span>* The field is required.</span>
+        </div>
+
         <div *ngIf="isEditMode">
             <div class="font-bold text-lg mb-2">
                 <label for="status">Status</label>

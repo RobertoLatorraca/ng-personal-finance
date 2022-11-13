@@ -3,5 +3,6 @@ export class Category {
     name!: string;
     parentCategory!: any;
     description!: string;
+    categoryGroup!: string;
     enabled!: any;
 }

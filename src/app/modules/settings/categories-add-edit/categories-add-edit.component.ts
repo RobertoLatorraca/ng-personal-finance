@@ -16,6 +16,7 @@ export class CategoriesAddEditComponent implements OnInit {
   isLoading: boolean = true;
 
   parentCategoryList: Category[] = [];
+  categoryGroups: string[] = [];
 
   categoryForm = new FormGroup({
     name: new FormControl('', [
@@ -24,6 +25,7 @@ export class CategoriesAddEditComponent implements OnInit {
     ]),
     parentCategory: new FormControl(null),
     description: new FormControl('', Validators.required),
+    categoryGroup: new FormControl('', Validators.required),
     enabled: new FormControl('')
     }
   );
@@ -57,6 +59,19 @@ export class CategoriesAddEditComponent implements OnInit {
         return [];
         }
       );
+    // Pueblo el array de categoryGroups. Bloqueo el hilo.
+    this.categoryGroups = await lastValueFrom(this.categoryService.findCategoryGroups())
+      .catch((err: any) => {
+        if (this.id) {
+          this.router.navigate(['../../'], { relativeTo: this.route });
+        } else {
+          this.router.navigate(['../'], { relativeTo: this.route });
+        }
+        this.toastService.error(err.message + '. You can\'t add/edit categories at this moment. Try later.', { autoClose: false, keepAfterRouteChange: false })
+        return [];
+        }
+      );
+    this.categoryForm.get('categoryGroup')?.setValue(this.categoryGroups[0]);
     if (this.id) {
       this.categoryService.findById(this.id).subscribe({
         next: (resp: Category) => {

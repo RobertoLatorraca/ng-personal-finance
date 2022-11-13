@@ -39,4 +39,11 @@ export class CategoryService {
       );
   }
 
+  public findCategoryGroups(): Observable<string[]> {
+    return this.http.get(Url.CATEGORY_GROUPS)
+      .pipe(
+        map(resp => resp as string[])
+      );
+  }
+
 }

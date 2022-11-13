@@ -16,6 +16,7 @@ export class CategoriesListComponent implements OnInit {
     { field: "name", name: "Name", style: {} },
     { field: "parentCategory", name: "Parent Category", style: {} },
     { field: "description", name: "Description", style: {} },
+    { field: "categoryGroup", name: "Group", style: {} },
     { field: "enabled", name: "Status", style: {} }
   ];
   data: any[] = [];
