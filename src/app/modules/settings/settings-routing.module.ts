@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AccountsAddComponent } from './accounts-add/accounts-add.component';
 import { AccountsListComponent } from './accounts-list/accounts-list.component';
 import { BanksAddEditComponent } from './banks-add-edit/banks-add-edit.component';
 import { BanksListComponent } from './banks-list/banks-list.component';
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'categories/edit/:id', component: CategoriesAddEditComponent },
 
   { path: 'accounts', component: AccountsListComponent },
+  { path: 'accounts/add', component: AccountsAddComponent },
 
   { path: '', redirectTo: 'banks', pathMatch: 'full' }
 

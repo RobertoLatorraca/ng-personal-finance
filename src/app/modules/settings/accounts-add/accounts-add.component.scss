@@ -1,0 +1,11 @@
+.not-valid {
+    @apply bg-red-200;
+}
+
+.not-valid:focus {
+    @apply border-red-500 bg-white
+}
+
+.has-errors {
+    @apply text-red-700
+}

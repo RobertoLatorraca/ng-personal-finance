@@ -15,6 +15,7 @@ import { TagsAddEditComponent } from './tags-add-edit/tags-add-edit.component';
 import { CategoriesListComponent } from './categories-list/categories-list.component';
 import { CategoriesAddEditComponent } from './categories-add-edit/categories-add-edit.component';
 import { AccountsListComponent } from './accounts-list/accounts-list.component';
+import { AccountsAddComponent } from './accounts-add/accounts-add.component';
 
 
 
@@ -31,7 +32,8 @@ import { AccountsListComponent } from './accounts-list/accounts-list.component';
     TagsAddEditComponent,
     CategoriesListComponent,
     CategoriesAddEditComponent,
-    AccountsListComponent
+    AccountsListComponent,
+    AccountsAddComponent
   ],
   imports: [
     CommonModule,
