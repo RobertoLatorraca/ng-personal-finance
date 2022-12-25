@@ -1,7 +1,7 @@
-<nav class="min-h-screen w-80 bg-slate-800 text-slate-300 p-5">
+<nav class="min-h-screen w-20 md:w-80 bg-slate-800 text-slate-300 p-5">
     <div class="flex items-center w-full mb-9 text-3xl font-bold">
         <i class="fas fa-chart-line text-cyan-400"></i>
-        <span class="grow text-center app__name">Finance.App</span>
+        <span class="grow hidden md:block text-center app__name">Finance.App</span>
     </div>
 
     <div class="text-xl px-1">
@@ -10,13 +10,18 @@
                 <a [routerLink]=link.url class="flex justify-between items-center hover:text-white">
                     <div>
                         <span class="pr-9"><i class={{link.icon}}></i></span>
-                        <span class="link__title">{{link.title}}</span>
+                        <span class="hidden md:inline-block link__title">{{link.title}}</span>
                     </div>
-                    <i *ngIf="link.sublinks" class="fas fa-angle-down arrow" (click)="showSubLinks(i)" [ngClass]="showedNavSublinks[i] ? 'arrow--rotate' : ''"></i>
+                    <div class="hidden md:block">
+                        <i *ngIf="link.sublinks" class="fas fa-angle-down arrow" (click)="showSubLinks(i)" [ngClass]="showedNavSublinks[i] ? 'arrow--rotate' : ''"></i>
+                    </div>
                 </a>
 
-                <ul class="nav__sublinks pl-14 py-5 bg-slate-800 text-base" [ngStyle]="{'display': showedNavSublinks[i] ? 'block' : ''}">
-                    <li class="sublinks__title" [ngClass]="link.sublinks ? 'pb-5': ''">
+                <ul class="nav__sublinks bg-slate-800 text-base
+                    block absolute left-full -top-1 py-5 pl-14 pr-10 rounded-r-md opacity-0 pointer-events-none;
+                    md:hidden md:relative md:left-0 md:top-0 md:opacity-100 md:pointer-events-auto"
+                    [ngStyle]="{'display': showedNavSublinks[i] ? 'block' : ''}">
+                    <li class="block md:hidden sublinks__title" [ngClass]="link.sublinks ? 'pb-5': ''">
                         <a [routerLink]=link.url>
                             <span class="text-lg text-slate-100">{{link.title}}</span>
                         </a>

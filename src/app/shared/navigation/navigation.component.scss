@@ -1,63 +1,13 @@
-nav.collapse {
-    @apply
-        w-20;
-}
-
-nav.collapse .app__name {
-    @apply
-        hidden;
-}
-
-nav.collapse li .link__title {
-    @apply
-        hidden;
-}
-
 nav li i.arrow {
     transition: all 0.3s ease;
-}
-
-nav.collapse li i.arrow {
-    @apply
-        hidden;
 }
 
 nav li i.arrow.arrow--rotate {
     transform: rotate(-180deg);
 }
 
-nav li .nav__sublinks {
-    transition: all 0.3s ease;
-    @apply
-        hidden;
-}
-
-nav.collapse li .nav__sublinks {
-    transition: all 0.4s ease;
-    @apply
-        block
-        absolute
-        left-full
-        -top-1
-        pl-14
-        pr-10
-        rounded-r-md
-        opacity-0
-        pointer-events-none;
-}
-
-nav.collapse li:hover .nav__sublinks {
+nav li:hover .nav__sublinks {
     @apply
         opacity-100
         pointer-events-auto;
-}
-
-nav li .nav__sublinks .sublinks__title {
-    @apply
-        hidden;
-}
-
-nav.collapse li .nav__sublinks .sublinks__title {
-    @apply
-        block;
 }
