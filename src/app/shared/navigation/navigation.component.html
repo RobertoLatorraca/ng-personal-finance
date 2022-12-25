@@ -16,11 +16,11 @@
                 </a>
 
                 <ul class="nav__sublinks pl-14 py-5 text-base" [ngStyle]="{'display': showedNavSublinks[i] ? 'block' : ''}">
-                    <li class="sublinks__title pb-5">
+                    <li class="sublinks__title" [ngClass]="link.sublinks ? 'pb-5': ''">
                         <span class="text-lg text-slate-100">{{link.title}}</span>
                     </li>
                     <div *ngIf="link.sublinks">
-                        <li *ngFor="let sublink of link.sublinks" class="pb-3">
+                        <li *ngFor="let sublink of link.sublinks; last as isLast" [ngClass]="!isLast ? 'pb-3' : ''">
                             <a [routerLink]=sublink.url class="hover:text-slate-100">
                                 <span>{{sublink.title}}</span>
                             </a>
