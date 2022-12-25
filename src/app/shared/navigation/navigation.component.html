@@ -1,27 +1,29 @@
-<nav class="min-h-screen text-slate-300 p-5 collapse">
+<nav class="min-h-screen w-80 bg-slate-800 text-slate-300 p-5">
     <div class="flex items-center w-full mb-9 text-3xl font-bold">
         <i class="fas fa-chart-line text-cyan-400"></i>
-        <span class="grow text-center">Finance.App</span>
+        <span class="grow text-center app__name">Finance.App</span>
     </div>
 
     <div class="text-xl px-1">
         <ul>
             <li *ngFor="let link of links; let i = index" class="relative py-3">
-                <a [routerLink]=link.url class="flex justify-between items-center hover:text-slate-100">
+                <a [routerLink]=link.url class="flex justify-between items-center hover:text-white">
                     <div>
                         <span class="pr-9"><i class={{link.icon}}></i></span>
-                        <span>{{link.title}}</span>
+                        <span class="link__title">{{link.title}}</span>
                     </div>
                     <i *ngIf="link.sublinks" class="fas fa-angle-down arrow" (click)="showSubLinks(i)" [ngClass]="showedNavSublinks[i] ? 'arrow--rotate' : ''"></i>
                 </a>
 
-                <ul class="nav__sublinks pl-14 py-5 text-base" [ngStyle]="{'display': showedNavSublinks[i] ? 'block' : ''}">
+                <ul class="nav__sublinks pl-14 py-5 bg-slate-800 text-base" [ngStyle]="{'display': showedNavSublinks[i] ? 'block' : ''}">
                     <li class="sublinks__title" [ngClass]="link.sublinks ? 'pb-5': ''">
-                        <span class="text-lg text-slate-100">{{link.title}}</span>
+                        <a [routerLink]=link.url>
+                            <span class="text-lg text-slate-100">{{link.title}}</span>
+                        </a>
                     </li>
                     <div *ngIf="link.sublinks">
                         <li *ngFor="let sublink of link.sublinks; last as isLast" [ngClass]="!isLast ? 'pb-3' : ''">
-                            <a [routerLink]=sublink.url class="hover:text-slate-100">
+                            <a [routerLink]=sublink.url class="hover:text-white">
                                 <span>{{sublink.title}}</span>
                             </a>
                         </li>                        
