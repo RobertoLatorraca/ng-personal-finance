@@ -1,77 +1,39 @@
-<nav class="min-h-screen text-slate-300 p-3">
-    <div class="_brand mb-7">
-        <div class="flex flex-row">
-            <div class="grow">
-                <h1 class="font-bold text-2xl">
-                    <i class="fas fa-chart-line mr-1.5 text-cyan-500"></i>
-                    FINANCE APP
-                </h1>
-            </div>
-            <div class="grow-0 text-2xl">
-                <span><i class="fas fa-bars"></i></span>
-            </div>
-        </div>
-
+<nav class="min-h-screen w-20 md:w-80 bg-slate-800 text-slate-300 p-5">
+    <div class="flex items-center w-full mb-9 text-3xl font-bold">
+        <i class="fas fa-chart-line text-cyan-400"></i>
+        <span class="grow hidden md:block text-center app__name">Finance.App</span>
     </div>
-    <div class="nav ml-5 text-lg">
+
+    <div class="text-xl px-1">
         <ul>
-            <li>
-                <a href="#">
-                    <span><i class="fas fa-home"></i></span>
-                    <span>Dashboard</span>                    
+            <li *ngFor="let link of links; let i = index" class="relative py-3">
+                <a [routerLink]=link.url class="flex justify-between items-center hover:text-white">
+                    <div>
+                        <span class="pr-9"><i class={{link.icon}}></i></span>
+                        <span class="hidden md:inline-block link__title">{{link.title}}</span>
+                    </div>
+                    <div class="hidden md:block">
+                        <i *ngIf="link.sublinks" class="fas fa-angle-down arrow" (click)="showSubLinks(i)" [ngClass]="showedNavSublinks[i] ? 'arrow--rotate' : ''"></i>
+                    </div>
                 </a>
-            </li>
-            <li>
-                <a [routerLink]="['accounts']">
-                    <span><i class="fas fa-cubes"></i></span>
-                    <span>Accounts</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span><i class="fas fa-calendar-alt"></i></span>
-                    <span>Calendar</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span><i class="fas fa-cog"></i></span>
-                    <span>Settings</span>
-                </a>
-                <div class="text-base">
-                    <ul>
-                        <li>
-                            <a [routerLink]="['settings/banks']">
-                                <span>Banks</span>
+
+                <ul class="nav__sublinks bg-slate-800 text-base
+                    block absolute left-full -top-1 py-5 pl-14 pr-10 rounded-r-md opacity-0 pointer-events-none;
+                    md:hidden md:relative md:left-0 md:top-0 md:opacity-100 md:pointer-events-auto"
+                    [ngStyle]="{'display': showedNavSublinks[i] ? 'block' : ''}">
+                    <li class="block md:hidden sublinks__title" [ngClass]="link.sublinks ? 'pb-5': ''">
+                        <a [routerLink]=link.url>
+                            <span class="text-lg text-slate-100">{{link.title}}</span>
+                        </a>
+                    </li>
+                    <div *ngIf="link.sublinks">
+                        <li *ngFor="let sublink of link.sublinks; last as isLast" [ngClass]="!isLast ? 'pb-3' : ''">
+                            <a [routerLink]=sublink.url class="hover:text-white">
+                                <span>{{sublink.title}}</span>
                             </a>
-                        </li>
-                        <li>
-                            <a [routerLink]="['settings/accounts']">
-                                <span>Accounts</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a [routerLink]="['settings/categories']">
-                                <span>Categories</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a [routerLink]="['settings/currencies']">
-                                <span>Currencies</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a [routerLink]="['settings/payees']">
-                                <span>Payees</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a [routerLink]="['settings/tags']">
-                                <span>Tags</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                        </li>                        
+                    </div>
+                </ul>
             </li>
         </ul>
     </div>

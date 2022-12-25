@@ -1,17 +1,17 @@
 <toast></toast>
-<div class="">
-    <div class="fixed">
+<div class="flex">
+    <div class="z-40">
         <app-navigation></app-navigation>
     </div>
-    <div class="h-full _content-position">
-        <div class="fixed w-full">
+    <div class="w-full bg-slate-300">
+        <div>
             <app-topbar></app-topbar>
         </div>
-        <main class="_main-height w-full bg-slate-300">
-            <app-breadcrumb></app-breadcrumb>
-            <div class="mx-8">
-                <router-outlet></router-outlet>
+        <div class="m-8">
+            <div class="mb-8">
+                <app-breadcrumb></app-breadcrumb>
             </div>
-        </main>
+            <router-outlet></router-outlet>
+        </div>
     </div>
 </div>
