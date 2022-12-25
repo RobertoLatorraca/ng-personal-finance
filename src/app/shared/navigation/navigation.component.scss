@@ -3,18 +3,47 @@ nav {
     width: var(--navigation-width);
 }
 
-.nav ul li {
-    @apply py-3;
+nav li i.arrow {
+    transition: all 0.3s ease;
 }
 
-.nav ul li i {
-    @apply mr-5;
+nav li i.arrow.arrow--rotate {
+    transform: rotate(-180deg);
 }
 
-.nav ul li ul {
-    @apply mt-3;
+nav li .nav__sublinks {
+    transition: all 0.3s ease;
+    @apply
+        hidden;
 }
 
-.nav ul li ul li {
-    @apply ml-10;
+nav.collapse li .nav__sublinks {
+    background-color: var(--navigation-background-color);
+    transition: all 0.4s ease;
+    @apply
+        block
+        absolute
+        left-full
+        -top-1
+        pl-14
+        pr-10
+        rounded-r-md
+        opacity-0
+        pointer-events-none;
+}
+
+nav.collapse li:hover .nav__sublinks {
+    @apply
+        opacity-100
+        pointer-events-auto;
+}
+
+nav li .nav__sublinks .sublinks__title {
+    @apply
+        hidden;
+}
+
+nav.collapse li .nav__sublinks .sublinks__title {
+    @apply
+        block;
 }

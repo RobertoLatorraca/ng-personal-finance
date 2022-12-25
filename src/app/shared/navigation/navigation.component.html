@@ -1,77 +1,32 @@
-<nav class="min-h-screen text-slate-300 p-3">
-    <div class="_brand mb-7">
-        <div class="flex flex-row">
-            <div class="grow">
-                <h1 class="font-bold text-2xl">
-                    <i class="fas fa-chart-line mr-1.5 text-cyan-500"></i>
-                    FINANCE APP
-                </h1>
-            </div>
-            <div class="grow-0 text-2xl">
-                <span><i class="fas fa-bars"></i></span>
-            </div>
-        </div>
-
+<nav class="min-h-screen text-slate-300 p-5 collapse">
+    <div class="flex items-center w-full mb-9 text-3xl font-bold">
+        <i class="fas fa-chart-line text-cyan-400"></i>
+        <span class="grow text-center">Finance.App</span>
     </div>
-    <div class="nav ml-5 text-lg">
+
+    <div class="text-xl px-1">
         <ul>
-            <li>
-                <a href="#">
-                    <span><i class="fas fa-home"></i></span>
-                    <span>Dashboard</span>                    
+            <li *ngFor="let link of links; let i = index" class="relative py-3">
+                <a [routerLink]=link.url class="flex justify-between items-center hover:text-slate-100">
+                    <div>
+                        <span class="pr-9"><i class={{link.icon}}></i></span>
+                        <span>{{link.title}}</span>
+                    </div>
+                    <i *ngIf="link.sublinks" class="fas fa-angle-down arrow" (click)="showSubLinks(i)" [ngClass]="showedNavSublinks[i] ? 'arrow--rotate' : ''"></i>
                 </a>
-            </li>
-            <li>
-                <a [routerLink]="['accounts']">
-                    <span><i class="fas fa-cubes"></i></span>
-                    <span>Accounts</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span><i class="fas fa-calendar-alt"></i></span>
-                    <span>Calendar</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span><i class="fas fa-cog"></i></span>
-                    <span>Settings</span>
-                </a>
-                <div class="text-base">
-                    <ul>
-                        <li>
-                            <a [routerLink]="['settings/banks']">
-                                <span>Banks</span>
+
+                <ul class="nav__sublinks pl-14 py-5 text-base" [ngStyle]="{'display': showedNavSublinks[i] ? 'block' : ''}">
+                    <li class="sublinks__title pb-5">
+                        <span class="text-lg text-slate-100">{{link.title}}</span>
+                    </li>
+                    <div *ngIf="link.sublinks">
+                        <li *ngFor="let sublink of link.sublinks" class="pb-3">
+                            <a [routerLink]=sublink.url class="hover:text-slate-100">
+                                <span>{{sublink.title}}</span>
                             </a>
-                        </li>
-                        <li>
-                            <a [routerLink]="['settings/accounts']">
-                                <span>Accounts</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a [routerLink]="['settings/categories']">
-                                <span>Categories</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a [routerLink]="['settings/currencies']">
-                                <span>Currencies</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a [routerLink]="['settings/payees']">
-                                <span>Payees</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a [routerLink]="['settings/tags']">
-                                <span>Tags</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                        </li>                        
+                    </div>
+                </ul>
             </li>
         </ul>
     </div>
