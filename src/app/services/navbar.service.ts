@@ -52,30 +52,6 @@ export class NavbarService {
           url: "settings/tags"
         }
       ]
-    },
-    {
-      title: "Accounts",
-      url: "accounts",
-      icon: "fas fa-cubes"
-    },
-    {
-      title: "Calendar",
-      url: "",
-      icon: "fas fa-calendar-alt",
-      sublinks: [
-        {
-          title: "Banks",
-          url: "settings/banks"
-        },
-        {
-          title: "Accounts",
-          url: "settings/accounts"
-        },
-        {
-          title: "Categories",
-          url: "settings/categories"
-        }
-      ]
     }
   );
 
