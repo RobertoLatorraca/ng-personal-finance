@@ -9,3 +9,9 @@
 .has-errors {
     @apply text-red-700
 }
+
+.disabled {
+    @apply 
+        text-slate-500
+        pointer-events-none;
+}

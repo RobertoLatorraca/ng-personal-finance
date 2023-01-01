@@ -8,171 +8,207 @@
 
     <form [formGroup]="addAccountForm" (ngSubmit)="onSubmit()">
 
-        <div class="flex flex-row gap-7">
-            <div (click)="setAccountType($event)"
-            [ngClass]="[cardAccountTypeStatus]"
-            class="min-h-min w-full text-center p-6 rounded shadow hover:shadow-md shadow-slate-400 hover:shadow-slate-400 bg-slate-100 hover:cursor-pointer">
-                <div class="flex flex-col">
-                    <div class="text-5xl"><i class="fas fa-university"></i></div>
-                    <div class="mt-2 font-bold">Bank</div>
-                </div>
+        <div class="page--1">
+            <div class="mb-5 text-center text-xl font-bold">Select account type</div>
+            <div class="flex flex-row gap-7">
+                <div *ngFor="let accountType of accountTypes; let i = index"
+                    class="min-h-min w-full text-center p-6 rounded shadow hover:shadow-md shadow-slate-400 hover:shadow-slate-400 bg-slate-100 hover:cursor-pointer"
+                    [ngClass]="accountType.type == addAccountForm.controls['accountType'].value ? 'bg-slate-400' : ''"
+                    (click)="selectAccountType(accountType)">
+                    <div class="flex flex-col">
+                        <div class="text-5xl"><i [ngClass]="accountType.icon"></i></div>
+                        <div class="mt-2 font-bold">{{accountType.title}}</div>
+                    </div>
+                </div> 
             </div>
-
-            <div class="min-h-min w-full text-center p-6 rounded shadow hover:shadow-md shadow-slate-400 hover:shadow-slate-400 bg-slate-100 hover:cursor-pointer">
-                <div class="flex flex-col">
-                    <div class="text-5xl"><i class="fas fa-credit-card"></i></div>
-                    <div class="mt-2 font-bold">Credit Card</div>
-                </div>
+            <div class="flex justify-end">
+                <div
+                    (click)="onNextPage1()"
+                    [class.disabled]="!addAccountForm.controls['accountType'].valid"
+                    class="py-3 px-4 mt-7 w-80 text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
+                    <i class="fas fa-arrow-right mr-2"></i>Next
+                </div>                
             </div>
+        </div>
 
-            <div class="min-h-min w-full text-center p-6 rounded shadow hover:shadow-md shadow-slate-400 hover:shadow-slate-400 bg-slate-100 hover:cursor-pointer">
-                <div class="flex flex-col">
-                    <div class="text-5xl"><i class="fas fa-university"></i></div><!-- fas fa-vault -->
-                    <div class="mt-2 font-bold">Investment</div>
-                </div>
+        <div class="page--2">
+            <div class="mb-5 text-center text-xl font-bold">Set name and currency</div>
+            <div class="font-bold text-lg mb-2">
+                <label for="account">Account</label>
             </div>
-
-            <div class="min-h-min w-full text-center p-6 rounded shadow hover:shadow-md shadow-slate-400 hover:shadow-slate-400 bg-slate-100 hover:cursor-pointer">
-                <div class="flex flex-col">
-                    <div class="text-5xl"><i class="fas fa-wallet"></i></div>
-                    <div class="mt-2 font-bold">Cash</div>
-                </div>
-            </div>   
-        </div>
-
-        <div class="font-bold text-lg mb-2">
-            <label for="account">Account</label>
-        </div>
-        <input formControlName="account"
-            type="text"
-            class="mb-1 w-full appearance-none block bg-slate-200 text-slate-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
-            [class.not-valid]="!addAccountForm.controls['account'].valid"
-            id="account"
-            placeholder="eg. Caja de Ahorro"
-            aria-describedby="accountHelp">
-        <div id="accountHelp" class="mb-3 text-sm text-slate-600">
-            <span [class.has-errors]="addAccountForm.controls['account'].hasError('required')">* The field is required.</span><br>
-            <span [class.has-errors]="addAccountForm.controls['account'].hasError('minlength')">* Minimum length 6 characters.</span><br>
-            Make sure you don't add an account that already exists.
-        </div>
-
-        <div class="font-bold text-lg mb-2">
-            <label for="currency">Currency</label>
-        </div>
-        <select formControlName="currency"
-            class="mb-1 w-full block bg-slate-200 text-slate-700 border rounded py-3 px-3 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
-            [class.not-valid]="!addAccountForm.controls['currency'].valid"
-            id="currency"
-            aria-describedby="currencyHelp">
-            <option [ngValue]=null>Select a currency</option>
-            <option *ngFor="let currency of currencies" [ngValue]="currency">{{currency.currency}}</option>
-        </select>
-        <div id="currencyHelp" class="mb-3 text-sm text-slate-600">
-            <span [class.has-errors]="addAccountForm.controls['currency'].hasError('required')">* The field is required.</span><br>
-        </div>
-
-        <div class="font-bold text-lg mb-2">
-            <label for="bank">Bank</label>
-        </div>
-        <select formControlName="bank"
-            class="mb-1 w-full block bg-slate-200 text-slate-700 border rounded py-3 px-3 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
-            [class.not-valid]="!addAccountForm.controls['bank'].valid"
-            id="bank"
-            aria-describedby="bankHelp">
-            <option [ngValue]=null>Select a bank</option>
-            <option *ngFor="let bank of banks" [ngValue]="bank">{{bank.name}}</option>
-        </select>
-        <div id="bankHelp" class="mb-3 text-sm text-slate-600">
-            <span [class.has-errors]="addAccountForm.controls['bank'].hasError('required')">* The field is required.</span><br>
-        </div>
-
-        <div class="font-bold text-lg mb-2">
-            <label for="cbu">CBU</label>
-        </div>
-        <input formControlName="cbu"
-            type="text"
-            class="mb-1 w-full appearance-none block bg-slate-200 text-slate-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
-            [class.not-valid]="!addAccountForm.controls['cbu'].valid"
-            id="cbu"
-            placeholder="eg. 2000015468432872300148"
-            aria-describedby="cbuHelp">
-        <div id="cbuHelp" class="mb-3 text-sm text-slate-600">
-            <span [class.has-errors]="addAccountForm.controls['cbu'].hasError('required')">* The field is required.</span><br>
-            <span [class.has-errors]="addAccountForm.controls['cbu'].hasError('minlength') || addAccountForm.controls['cbu'].hasError('maxlength')">* Length must be 22 characters.</span><br>
-        </div>
-
-        <div class="font-bold text-lg mb-2">
-            <label for="accountNumber">Account number</label>
-        </div>
-        <input formControlName="accountNumber"
-            type="text"
-            class="mb-1 w-full appearance-none block bg-slate-200 text-slate-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
-            [class.not-valid]="!addAccountForm.controls['accountNumber'].valid"
-            id="accountNumber"
-            placeholder="eg. 4017977-9 047-4"
-            aria-describedby="accountNumberHelp">
-        <div id="accountNumberHelp" class="mb-3 text-sm text-slate-600">
-            <span [class.has-errors]="addAccountForm.controls['accountNumber'].hasError('required')">* The field is required.</span><br>
-            <span [class.has-errors]="addAccountForm.controls['accountNumber'].hasError('minlength')">* Minimum length 6 characters.</span><br>
-        </div>
-
-        <div class="font-bold text-lg mb-2">
-            <label for="alias">Alias</label>
-        </div>
-        <input formControlName="alias"
-            type="text"
-            class="mb-1 w-full appearance-none block bg-slate-200 text-slate-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
-            [class.not-valid]="!addAccountForm.controls['alias'].valid"
-            id="alias"
-            placeholder="eg. NIETO.LINO.TORSO"
-            aria-describedby="aliasHelp">
-        <div id="aliasHelp" class="mb-3 text-sm text-slate-600">
-            <span [class.has-errors]="addAccountForm.controls['alias'].hasError('required')">* The field is required.</span><br>
-            <span [class.has-errors]="addAccountForm.controls['alias'].hasError('minlength')">* Minimum length 6 characters.</span><br>
-        </div>
-
-        <div class="font-bold text-lg mb-2">
-            <label for="creditCardBrand">Brand</label>
-        </div>
-        <select formControlName="creditCardBrand"
-            class="mb-1 w-full block bg-slate-200 text-slate-700 border rounded py-3 px-3 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
-            [class.not-valid]="!addAccountForm.controls['creditCardBrand'].valid"
-            id="creditCardBrand"
-            aria-describedby="creditCardBrandHelp">
-            <option [ngValue]=null>Select a brand</option>
-            <option *ngFor="let brand of brands" [ngValue]="brand">{{brand}}</option>
-        </select>
-        <div id="creditCardBrandHelp" class="mb-3 text-sm text-slate-600">
-            <span [class.has-errors]="addAccountForm.controls['creditCardBrand'].hasError('required')">* The field is required.</span><br>
-        </div>
-
-        <div class="font-bold text-lg mb-2">
-            <label for="creditCardNumber">Credit card number</label>
-        </div>
-        <input formControlName="creditCardNumber"
-            type="text"
-            class="mb-1 w-full appearance-none block bg-slate-200 text-slate-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
-            [class.not-valid]="!addAccountForm.controls['creditCardNumber'].valid"
-            id="creditCardNumber"
-            placeholder="eg. 4546 9000 2653 8443"
-            aria-describedby="creditCardNumberHelp">
-        <div id="creditCardNumberHelp" class="mb-3 text-sm text-slate-600">
-            <span [class.has-errors]="addAccountForm.controls['creditCardNumber'].hasError('required')">* The field is required.</span><br>
-            <span [class.has-errors]="addAccountForm.controls['creditCardNumber'].hasError('minlength')">* Minimum length 6 characters.</span><br>
-        </div>
+            <input formControlName="account"
+                type="text"
+                class="mb-1 w-full appearance-none block bg-slate-200 text-slate-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
+                id="account"
+                placeholder="eg. Caja de Ahorro"
+                aria-describedby="accountHelp">
+            <div id="accountHelp" class="mb-3 text-sm text-slate-600">
+                <span>* The field is required.</span><br>
+                <span>* Minimum length 6 characters.</span><br>
+                Make sure you don't add an account that already exists.
+            </div>
     
-        <div class="font-bold text-lg mb-2">
-            <label for="expiration">Expiration</label>
+            <div class="font-bold text-lg mb-2">
+                <label for="currency">Currency</label>
+            </div>
+            <select formControlName="currency"
+                class="mb-1 w-full block bg-slate-200 text-slate-700 border rounded py-3 px-3 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
+                id="currency"
+                aria-describedby="currencyHelp">
+                <option [ngValue]=null>Select a currency</option>
+                <option *ngFor="let currency of currencies" [ngValue]="currency">{{currency.currency}}</option>
+            </select>
+            <div id="currencyHelp" class="mb-3 text-sm text-slate-600">
+                <span>* The field is required.</span><br>
+            </div>
+            <div class="flex justify-between">
+                <div
+                    class="py-3 px-4 mt-7 w-80 text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
+                    <i class="fas fa-arrow-left mr-2"></i>Previous
+                </div>
+                <div
+                *ngIf="addAccountForm.controls['accountType'].value ==='BANK' || addAccountForm.controls['accountType'].value ==='CREDIT_CARD'"
+                (click)="onNextPage2()"
+                [class.disabled]="!addAccountForm.controls['account'].valid || !addAccountForm.controls['currency'].valid"
+                class="py-3 px-4 mt-7 w-80 text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
+                <i class="fas fa-arrow-right mr-2"></i>Next
+                </div>
+                <div
+                *ngIf="addAccountForm.controls['accountType'].value ==='INVESTMENT' || addAccountForm.controls['accountType'].value ==='CASH'"
+                (click)="onSubmit()"
+                [class.disabled]="!addAccountForm.controls['account'].valid || !addAccountForm.controls['currency'].valid"
+                class="py-3 px-4 mt-7 w-80 text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
+                <i class="fas fa-save mr-2"></i>Save account
+                </div>
+            </div>
         </div>
-        <input formControlName="expiration"
-            type="date"
-            class="mb-1 w-full appearance-none block bg-slate-200 text-slate-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
-            [class.not-valid]="!addAccountForm.controls['expiration'].valid"
-            id="expiration"
-            placeholder="eg. 2000015468432872300148"
-            aria-describedby="expirationHelp">
-        <div id="expirationHelp" class="mb-3 text-sm text-slate-600">
-            <span [class.has-errors]="addAccountForm.controls['expiration'].hasError('required')">* The field is required.</span><br>
+
+        <div class="page--3 bank">
+            <div class="mb-5 text-center text-xl font-bold">Set bank details</div>
+            <div class="font-bold text-lg mb-2">
+                <label for="bank">Bank</label>
+            </div>
+            <select formControlName="bank"
+                class="mb-1 w-full block bg-slate-200 text-slate-700 border rounded py-3 px-3 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
+                id="bank"
+                aria-describedby="bankHelp">
+                <option [ngValue]=null>Select a bank</option>
+                <option *ngFor="let bank of banks" [ngValue]="bank">{{bank.name}}</option>
+            </select>
+            <div id="bankHelp" class="mb-3 text-sm text-slate-600">
+                <span>* The field is required.</span><br>
+            </div>
+            <div class="font-bold text-lg mb-2">
+                <label for="accountNumber">Account number</label>
+            </div>
+            <input formControlName="accountNumber"
+                type="text"
+                class="mb-1 w-full appearance-none block bg-slate-200 text-slate-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
+                id="accountNumber"
+                placeholder="eg. 4017977-9 047-4"
+                aria-describedby="accountNumberHelp">
+            <div id="accountNumberHelp" class="mb-3 text-sm text-slate-600">
+                <span>* The field is required.</span><br>
+                <span>* Minimum length 8 characters.</span><br>
+            </div>
+            <div class="font-bold text-lg mb-2">
+                <label for="cbu">CBU</label>
+            </div>
+            <input formControlName="cbu"
+                type="text"
+                class="mb-1 w-full appearance-none block bg-slate-200 text-slate-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
+                id="cbu"
+                placeholder="eg. 2000015468432872300148"
+                aria-describedby="cbuHelp">
+            <div id="cbuHelp" class="mb-3 text-sm text-slate-600">
+                <span>* The field is required.</span><br>
+                <span>* Length must be 22 characters.</span><br>
+            </div>
+            <div class="font-bold text-lg mb-2">
+                <label for="alias">Alias</label>
+            </div>
+            <input formControlName="alias"
+                type="text"
+                class="mb-1 w-full appearance-none block bg-slate-200 text-slate-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
+                id="alias"
+                placeholder="eg. NIETO.LINO.TORSO"
+                aria-describedby="aliasHelp">
+            <div id="aliasHelp" class="mb-3 text-sm text-slate-600">
+                <span>* The field is required.</span><br>
+            </div>
+            <div class="flex justify-between">
+                <div
+                    class="py-3 px-4 mt-7 w-80 text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
+                    <i class="fas fa-arrow-left mr-2"></i>Previous
+                </div>
+                <div
+                (click)="onSubmit()"
+                [class.disabled]="!addAccountForm.controls['bank'].valid ||
+                        !addAccountForm.controls['accountNumber'].valid ||
+                        !addAccountForm.controls['cbu'].valid ||
+                        !addAccountForm.controls['alias'].valid ||
+                        addAccountForm.controls['accountType'].value !== 'BANK'"
+                class="py-3 px-4 mt-7 w-80 text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
+                <i class="fas fa-save mr-2"></i>Save account
+                </div>
+            </div>
+        </div>
+
+        <div class="page--3 creditcard">
+            <div class="mb-5 text-center text-xl font-bold">Set credit card details</div>
+            <div class="font-bold text-lg mb-2">
+                <label for="creditCardBrand">Brand</label>
+            </div>
+            <select formControlName="creditCardBrand"
+                class="mb-1 w-full block bg-slate-200 text-slate-700 border rounded py-3 px-3 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
+                id="creditCardBrand"
+                aria-describedby="creditCardBrandHelp">
+                <option [ngValue]=null>Select a brand</option>
+                <option *ngFor="let brand of brands" [ngValue]="brand">{{brand}}</option>
+            </select>
+            <div id="creditCardBrandHelp" class="mb-3 text-sm text-slate-600">
+                <span>* The field is required.</span><br>
+            </div>
+            <div class="font-bold text-lg mb-2">
+                <label for="creditCardNumber">Credit card number</label>
+            </div>
+            <input formControlName="creditCardNumber"
+                type="text"
+                class="mb-1 w-full appearance-none block bg-slate-200 text-slate-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
+                id="creditCardNumber"
+                placeholder="eg. 4546 9000 2653 8443"
+                aria-describedby="creditCardNumberHelp">
+            <div id="creditCardNumberHelp" class="mb-3 text-sm text-slate-600">
+                <span>* The field is required.</span><br>
+                <span>* Minimum length 15 characters.</span><br>
+            </div>
+            <div class="font-bold text-lg mb-2">
+                <label for="expiration">Expiration</label>
+            </div>
+            <input formControlName="expiration"
+                type="date"
+                class="mb-1 w-full appearance-none block bg-slate-200 text-slate-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-slate-500"
+                id="expiration"
+                placeholder="eg. 2000015468432872300148"
+                aria-describedby="expirationHelp">
+            <div id="expirationHelp" class="mb-3 text-sm text-slate-600">
+                <span>* The field is required.</span><br>
+            </div>
+            <div class="flex justify-between">
+                <div
+                    class="py-3 px-4 mt-7 w-80 text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
+                    <i class="fas fa-arrow-left mr-2"></i>Previous
+                </div>
+                <div
+                (click)="onSubmit()"
+                [class.disabled]="!addAccountForm.controls['creditCardBrand'].valid ||
+                        !addAccountForm.controls['creditCardNumber'].valid ||
+                        !addAccountForm.controls['expiration'].valid ||
+                        addAccountForm.controls['accountType'].value !== 'CREDIT_CARD'"
+                class="py-3 px-4 mt-7 w-80 text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
+                <i class="fas fa-save mr-2"></i>Save account
+                </div>
+            </div>
         </div>
 
     </form>
