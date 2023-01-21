@@ -92,6 +92,7 @@ export class CategoriesAddEditComponent implements OnInit {
     this.categoryObj.name = this.categoryObj.name.trim();
     this.categoryObj.parentCategory = this.categoryForm.get('parentCategory')?.value;
     this.categoryObj.description = this.categoryForm.get('description')?.value;
+    this.categoryObj.categoryGroup = this.categoryForm.get('categoryGroup')?.value;
     this.categoryObj.enabled = this.categoryForm.get('enabled')?.value;
     if (this.isEditMode == false) {
       this.categoryObj.enabled = true;
