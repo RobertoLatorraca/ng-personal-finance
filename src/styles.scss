@@ -17,13 +17,33 @@
 }
 
 :root {
-    --fresh: #4ABDAC;
-    --vermillion: #FC4A1A;
-    --sunshine: #F7B733;
-    --clean: #DFDCE3;
+    --primary: #4ABDAC; // FRESH
+    --secondary: #FC4A1A; // VERMILLION
+    --tertiary: #F7B733; // SUNSHINE
+    --quaternary: #DFDCE3; // CLEAN
 }
 
 html {
     font-family: "Ubuntu";
     font-size: 12px;
+}
+
+.bg--primary {
+    background-color: var(--primary);
+}
+
+.bg--secondary {
+    background-color: var(--secondary);
+}
+
+.bg--quaternary {
+    background-color: var(--quaternary);
+}
+
+.text--secondary {
+    color: var(--secondary);
+}
+
+.text--tertiary {
+    color: var(--tertiary);
 }

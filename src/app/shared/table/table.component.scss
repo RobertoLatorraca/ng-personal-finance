@@ -4,9 +4,17 @@ table td {
 }
 
 table tbody tr {
-    @apply border-t border-slate-400;
+    @apply border-t border-black;
 }
 
 table tbody tr:hover {
     @apply bg-slate-100;
+}
+
+.button--hover:hover {
+    background-color: var(--tertiary);
+}
+
+.edit--hover:hover {
+    color: var(--tertiary);
 }

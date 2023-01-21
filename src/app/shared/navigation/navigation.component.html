@@ -1,34 +1,34 @@
-<nav class="min-h-screen w-20 md:w-80 bg-slate-800 text-slate-300 p-5">
-    <div class="flex items-center w-full mb-9 text-3xl font-bold">
-        <i class="fas fa-chart-line text-cyan-400"></i>
-        <span class="grow hidden md:block text-center app__name">Finance.App</span>
+<nav class="min-h-screen w-20 md:w-80 bg--primary text-black p-5">
+    <div class="flex items-center w-full mb-9 text-3xl font-bold text--secondary">
+        <i class="fas fa-chart-line"></i>
+        <span class="grow hidden md:block text-center">Finance.App</span>
     </div>
 
     <div class="text-xl px-1">
         <ul>
             <li *ngFor="let link of links; let i = index" class="relative py-3">
-                <a [routerLink]=link.url class="flex justify-between items-center hover:text-white">
+                <a [routerLink]=link.url class="flex justify-between items-center link--hover font-bold">
                     <div>
                         <span class="pr-9"><i class={{link.icon}}></i></span>
-                        <span class="hidden md:inline-block link__title">{{link.title}}</span>
+                        <span class="hidden md:inline-block">{{link.title}}</span>
                     </div>
                     <div class="hidden md:block">
                         <i *ngIf="link.sublinks" class="fas fa-angle-down arrow" (click)="showSubLinks(i)" [ngClass]="showedNavSublinks[i] ? 'arrow--rotate' : ''"></i>
                     </div>
                 </a>
 
-                <ul class="nav__sublinks bg-slate-800 text-base
+                <ul class="nav__sublinks bg--primary text-base
                     block absolute left-full -top-1 py-5 pl-14 pr-10 rounded-r-md opacity-0 pointer-events-none;
                     md:hidden md:relative md:left-0 md:top-0 md:opacity-100 md:pointer-events-auto"
                     [ngStyle]="{'display': showedNavSublinks[i] ? 'block' : ''}">
-                    <li class="block md:hidden sublinks__title" [ngClass]="link.sublinks ? 'pb-5': ''">
+                    <li class="block md:hidden" [ngClass]="link.sublinks ? 'pb-5': ''">
                         <a [routerLink]=link.url>
-                            <span class="text-lg text-slate-100">{{link.title}}</span>
+                            <span class="text-lg font-bold text--secondary">{{link.title}}</span>
                         </a>
                     </li>
                     <div *ngIf="link.sublinks">
                         <li *ngFor="let sublink of link.sublinks; last as isLast" [ngClass]="!isLast ? 'pb-3' : ''">
-                            <a [routerLink]=sublink.url class="hover:text-white">
+                            <a [routerLink]=sublink.url class="link--hover">
                                 <span>{{sublink.title}}</span>
                             </a>
                         </li>                        
