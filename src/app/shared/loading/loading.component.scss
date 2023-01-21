@@ -48,12 +48,10 @@
 }
 
 .circle:nth-child(1) {
-    @apply
-        bg-cyan-500;
+    background-color: var(--secondary);
 }
 
 .circle:nth-child(2) {
-    @apply
-        bg-slate-700;
+    background-color: var(--tertiary);
     animation-delay: -2s;
 }

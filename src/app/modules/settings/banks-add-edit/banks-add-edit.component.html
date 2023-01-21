@@ -38,11 +38,14 @@
             </label>            
         </div>
 
-        <button 
-            type="submit"
-            [disabled]="!bankForm.valid || bankForm.pristine"
-            class="py-3 px-4 mt-7 w-full text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
-            <i class="fas fa-save mr-2"></i>Save bank
-        </button>
+        <div class="button--wrapper mt-7">
+            <button 
+                type="submit"
+                [disabled]="!bankForm.valid || bankForm.pristine"
+                class="py-3 px-4 w-full text-center text-lg cursor-pointer bg--primary rounded shadow shadow-slate-400 button--hover">
+                <i class="fas fa-save mr-2"></i>Save bank
+            </button>            
+        </div>
+
     </form>
 </div>

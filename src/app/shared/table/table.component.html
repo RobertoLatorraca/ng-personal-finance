@@ -1,14 +1,14 @@
 <div class="min-h-min w-full p-6 rounded shadow shadow-slate-400 bg-white">
     <div class="flex mb-10">
         <div class="grow font-bold text-2xl">{{title}} list</div>
-        <a *ngIf="addButton" [routerLink]="addButtonUrl">
-            <div class="py-1 px-4 cursor-pointer bg-slate-300 rounded shadow shadow-slate-400"><i class="fas fa-plus mr-2"></i>Add {{title}}</div>
+        <a *ngIf="addButton" [routerLink]="addButtonUrl" class="bg--primary ursor-pointer button--hover rounded shadow shadow-slate-400">
+            <div class="py-1 px-4"><i class="fas fa-plus mr-2"></i>Add {{title}}</div>
         </a>
     </div>
     <div *ngIf="data.length == 0">There are no records for the type {{title}}</div>
     <table *ngIf="data.length > 0" class="w-full border-collapse">
         <thead class="text-left">
-            <tr class="bg-slate-200">
+            <tr class="bg--quaternary">
                 <th>#</th>
                 <th *ngFor="let theader of columns">{{theader.name}}</th>
                 <th *ngIf="editButton"></th>
@@ -19,7 +19,7 @@
                 <td>{{i + 1}}</td>
                 <td *ngFor="let key of columns"><span [ngStyle]="key.style">{{record[key.field]}}</span></td>
                 <td *ngIf="editButton">
-                    <a [routerLink]="['edit', record.id]"><i class="fas fa-pencil-alt"></i></a>
+                    <a [routerLink]="['edit', record.id]" class="edit--hover"><i class="fas fa-pencil-alt"></i></a>
                 </td>
             </tr>
         </tbody>
