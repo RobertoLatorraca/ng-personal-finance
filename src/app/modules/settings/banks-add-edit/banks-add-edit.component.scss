@@ -1,6 +1,16 @@
+.button--wrapper {
+    @apply
+        cursor-not-allowed;
+}
+
 button:disabled {
-    cursor: not-allowed;
-    @apply text-slate-500;
+    @apply 
+        text-slate-500
+        pointer-events-none;
+}
+
+.button--hover:hover {
+    background-color: var(--tertiary);
 }
 
 .slider {
