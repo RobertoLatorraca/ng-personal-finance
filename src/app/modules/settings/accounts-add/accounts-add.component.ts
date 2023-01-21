@@ -35,7 +35,6 @@ export class AccountsAddComponent implements OnInit {
   banks: Bank[] = [];
   currencies: Currency[] = [];
   brands: string[] = ['VISA', 'MASTERCARD', 'AMEX', 'NARANJA'];
-  cardAccountTypeStatus: string = '';
 
   constructor(private bankService: BankService, private currencyService: CurrencyService, private accountService: AccountService) { }
 
@@ -75,7 +74,9 @@ export class AccountsAddComponent implements OnInit {
     console.log('continua el codigo')
   }
 
-  onSubmit(): void { }
+  onSubmit(): void {
+    
+  }
 
   bankValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
