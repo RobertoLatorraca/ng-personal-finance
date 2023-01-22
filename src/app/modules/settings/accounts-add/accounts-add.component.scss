@@ -1,3 +1,19 @@
+.account-card--hover:hover {
+    background-color: var(--tertiary);
+    @apply
+        cursor-pointer
+        shadow-md;
+}
+
+.button--wrapper {
+    @apply
+        cursor-not-allowed;
+}
+
+.button--hover:hover {
+    background-color: var(--tertiary);
+}
+
 .not-valid {
     @apply bg-red-200;
 }

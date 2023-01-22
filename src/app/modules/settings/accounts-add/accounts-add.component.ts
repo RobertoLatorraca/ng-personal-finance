@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Account } from 'src/app/models/account';
 import { Bank } from 'src/app/models/bank';
 import { Currency } from 'src/app/models/currency';
 import { AccountService } from 'src/app/services/account.service';
 import { BankService } from 'src/app/services/bank.service';
 import { CurrencyService } from 'src/app/services/currency.service';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-accounts-add',
@@ -14,6 +17,7 @@ import { CurrencyService } from 'src/app/services/currency.service';
 export class AccountsAddComponent implements OnInit {
 
   isLoading: boolean = false;
+  actualPage: number = 1;
 
   addAccountForm = new FormGroup({
     accountType: new FormControl('', Validators.required),
@@ -35,8 +39,14 @@ export class AccountsAddComponent implements OnInit {
   banks: Bank[] = [];
   currencies: Currency[] = [];
   brands: string[] = ['VISA', 'MASTERCARD', 'AMEX', 'NARANJA'];
+  account: Account = new Account();
 
-  constructor(private bankService: BankService, private currencyService: CurrencyService, private accountService: AccountService) { }
+  constructor(private bankService: BankService,
+    private currencyService: CurrencyService,
+    private accountService: AccountService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.bankService.findAll().subscribe({
@@ -65,17 +75,38 @@ export class AccountsAddComponent implements OnInit {
 
   onNextPage1():void {
     if (!this.addAccountForm.get('accountType')?.valid) return;
-    console.log('continua el codigo')
-    console.log(this.addAccountForm)
+    this.actualPage = 2;
   }
 
   onNextPage2():void {
     if (this.addAccountForm.get('account')?.errors || this.addAccountForm.get('currency')?.errors) return;
-    console.log('continua el codigo')
+    this.actualPage = 3;
+  }
+
+  onPrevious(): void {
+    this.actualPage -= 1;
   }
 
   onSubmit(): void {
-    
+    this.account.accountType = this.addAccountForm.get('accountType')?.value;
+    this.account.account = this.addAccountForm.get('account')?.value;
+    this.account.currency = this.addAccountForm.get('currency')?.value;
+    this.account.bank = this.addAccountForm.get('bank')?.value;
+    this.account.accountNumber = this.addAccountForm.get('accountNumber')?.value;
+    this.account.cbu = this.addAccountForm.get('cbu')?.value;
+    this.account.alias = this.addAccountForm.get('alias')?.value;
+    this.account.creditCardBrand = this.addAccountForm.get('creditCardBrand')?.value;
+    this.account.creditCardNumber = this.addAccountForm.get('creditCardNumber')?.value;
+    this.account.expiration = this.addAccountForm.get('expiration')?.value;
+    this.account.enabled = true;
+    this.accountService.save(this.account).subscribe({
+      complete: () => {
+        this.toastService.success("New account registered successfully!!!", { autoClose: true, keepAfterRouteChange: true });
+        this.router.navigate(['../'], { relativeTo: this.route });
+      },
+      error: (err: any) =>
+        this.toastService.error(err.error.errorText || err.message, { autoClose: false, keepAfterRouteChange: false })
+    });
   }
 
   bankValidator(): ValidatorFn {
@@ -124,9 +155,11 @@ export class AccountsAddComponent implements OnInit {
   }
 
   creditCardNumberValidator(): ValidatorFn {
+    const MIN_LENGTH = 15;
     return (control: AbstractControl): ValidationErrors | null => {
       if (control.parent?.get('accountType')?.value !== 'CREDIT_CARD') return null;
       if (isEmptyInputValue(control.value)) return { 'required': true };
+      if (hasValidLength(control.value) && control.value.length < MIN_LENGTH) return { 'minlength': {'requiredLength': MIN_LENGTH, 'actualLength': control.value.length} };
       return null;
     };
   }

@@ -44,9 +44,12 @@ export class AccountService {
   public getAccountTypes(): Observable<any> {
     return this.accountTypes;
   }
-/*
-  public save(account: Account): Observable<Account> {
 
+  public save(account: Account): Observable<Account> {
+    return this.http.post(Url.ACCOUNTS, account)
+      .pipe(
+        map(resp => resp as Account)
+      );
   }
-*/
+
 }

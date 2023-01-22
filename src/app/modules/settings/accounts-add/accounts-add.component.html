@@ -8,12 +8,13 @@
 
     <form [formGroup]="addAccountForm" (ngSubmit)="onSubmit()">
 
-        <div class="page--1">
+        <div class="page--1 account-type"
+            *ngIf="actualPage === 1">
             <div class="mb-5 text-center text-xl font-bold">Select account type</div>
             <div class="flex flex-row gap-7">
                 <div *ngFor="let accountType of accountTypes; let i = index"
-                    class="min-h-min w-full text-center p-6 rounded shadow hover:shadow-md shadow-slate-400 hover:shadow-slate-400 bg-slate-100 hover:cursor-pointer"
-                    [ngClass]="accountType.type == addAccountForm.controls['accountType'].value ? 'bg-slate-400' : ''"
+                    class="min-h-min w-full text-center p-6 rounded shadow shadow-slate-400"
+                    [ngClass]="accountType.type == addAccountForm.controls['accountType'].value ? 'bg--secondary' : 'bg--quaternary account-card--hover'"
                     (click)="selectAccountType(accountType)">
                     <div class="flex flex-col">
                         <div class="text-5xl"><i [ngClass]="accountType.icon"></i></div>
@@ -22,16 +23,19 @@
                 </div> 
             </div>
             <div class="flex justify-end">
-                <div
-                    (click)="onNextPage1()"
-                    [class.disabled]="!addAccountForm.controls['accountType'].valid"
-                    class="py-3 px-4 mt-7 w-80 text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
-                    <i class="fas fa-arrow-right mr-2"></i>Next
-                </div>                
+                <div class="button--wrapper mt-7">
+                    <div
+                        (click)="onNextPage1()"
+                        [class.disabled]="!addAccountForm.controls['accountType'].valid"
+                        class="py-3 px-4 w-80 text-center text-lg cursor-pointer bg--primary rounded shadow shadow-slate-400 button--hover">
+                        <i class="fas fa-arrow-right mr-2"></i>Next
+                    </div>                        
+                </div>
             </div>
         </div>
 
-        <div class="page--2">
+        <div class="page--2"
+            *ngIf="actualPage === 2">
             <div class="mb-5 text-center text-xl font-bold">Set name and currency</div>
             <div class="font-bold text-lg mb-2">
                 <label for="account">Account</label>
@@ -62,28 +66,34 @@
                 <span>* The field is required.</span><br>
             </div>
             <div class="flex justify-between">
-                <div
-                    class="py-3 px-4 mt-7 w-80 text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
-                    <i class="fas fa-arrow-left mr-2"></i>Previous
+                <div class="button--wrapper mt-7">
+                    <div
+                        (click)="onPrevious()"
+                        class="py-3 px-4 w-80 text-center text-lg cursor-pointer bg--primary rounded shadow shadow-slate-400 button--hover">
+                        <i class="fas fa-arrow-left mr-2"></i>Previous
+                    </div>
                 </div>
-                <div
-                *ngIf="addAccountForm.controls['accountType'].value ==='BANK' || addAccountForm.controls['accountType'].value ==='CREDIT_CARD'"
-                (click)="onNextPage2()"
-                [class.disabled]="!addAccountForm.controls['account'].valid || !addAccountForm.controls['currency'].valid"
-                class="py-3 px-4 mt-7 w-80 text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
-                <i class="fas fa-arrow-right mr-2"></i>Next
-                </div>
-                <div
-                *ngIf="addAccountForm.controls['accountType'].value ==='INVESTMENT' || addAccountForm.controls['accountType'].value ==='CASH'"
-                (click)="onSubmit()"
-                [class.disabled]="!addAccountForm.controls['account'].valid || !addAccountForm.controls['currency'].valid"
-                class="py-3 px-4 mt-7 w-80 text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
-                <i class="fas fa-save mr-2"></i>Save account
+                <div class="button--wrapper mt-7">
+                    <div
+                        *ngIf="addAccountForm.controls['accountType'].value === 'BANK' || addAccountForm.controls['accountType'].value === 'CREDIT_CARD'"
+                        (click)="onNextPage2()"
+                        [class.disabled]="!addAccountForm.controls['account'].valid || !addAccountForm.controls['currency'].valid"
+                        class="py-3 px-4 w-80 text-center text-lg cursor-pointer bg--primary rounded shadow shadow-slate-400 button--hover">
+                        <i class="fas fa-arrow-right mr-2"></i>Next
+                    </div>
+                    <div
+                        *ngIf="addAccountForm.controls['accountType'].value === 'INVESTMENT' || addAccountForm.controls['accountType'].value === 'CASH'"
+                        (click)="onSubmit()"
+                        [class.disabled]="!addAccountForm.controls['account'].valid || !addAccountForm.controls['currency'].valid"
+                        class="py-3 px-4 w-80 text-center text-lg cursor-pointer bg--primary rounded shadow shadow-slate-400 button--hover">
+                        <i class="fas fa-save mr-2"></i>Save account
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="page--3 bank">
+        <div class="page--3 bank"
+            *ngIf="actualPage === 3 && addAccountForm.controls['accountType'].value === 'BANK'">
             <div class="mb-5 text-center text-xl font-bold">Set bank details</div>
             <div class="font-bold text-lg mb-2">
                 <label for="bank">Bank</label>
@@ -137,24 +147,30 @@
                 <span>* The field is required.</span><br>
             </div>
             <div class="flex justify-between">
-                <div
-                    class="py-3 px-4 mt-7 w-80 text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
-                    <i class="fas fa-arrow-left mr-2"></i>Previous
+                <div class="button--wrapper mt-7">
+                    <div
+                        (click)="onPrevious()"
+                        class="py-3 px-4 w-80 text-center text-lg cursor-pointer bg--primary rounded shadow shadow-slate-400 button--hover">
+                        <i class="fas fa-arrow-left mr-2"></i>Previous
+                    </div>
                 </div>
-                <div
-                (click)="onSubmit()"
-                [class.disabled]="!addAccountForm.controls['bank'].valid ||
-                        !addAccountForm.controls['accountNumber'].valid ||
-                        !addAccountForm.controls['cbu'].valid ||
-                        !addAccountForm.controls['alias'].valid ||
-                        addAccountForm.controls['accountType'].value !== 'BANK'"
-                class="py-3 px-4 mt-7 w-80 text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
-                <i class="fas fa-save mr-2"></i>Save account
+                <div class="button--wrapper mt-7">
+                    <div
+                        (click)="onSubmit()"
+                        [class.disabled]="!addAccountForm.controls['bank'].valid ||
+                                !addAccountForm.controls['accountNumber'].valid ||
+                                !addAccountForm.controls['cbu'].valid ||
+                                !addAccountForm.controls['alias'].valid ||
+                                addAccountForm.controls['accountType'].value !== 'BANK'"
+                                class="py-3 px-4 w-80 text-center text-lg cursor-pointer bg--primary rounded shadow shadow-slate-400 button--hover">
+                        <i class="fas fa-save mr-2"></i>Save account
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="page--3 creditcard">
+        <div class="page--3 creditcard"
+            *ngIf="actualPage === 3 && addAccountForm.controls['accountType'].value === 'CREDIT_CARD'">
             <div class="mb-5 text-center text-xl font-bold">Set credit card details</div>
             <div class="font-bold text-lg mb-2">
                 <label for="creditCardBrand">Brand</label>
@@ -195,18 +211,23 @@
                 <span>* The field is required.</span><br>
             </div>
             <div class="flex justify-between">
-                <div
-                    class="py-3 px-4 mt-7 w-80 text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
-                    <i class="fas fa-arrow-left mr-2"></i>Previous
+                <div class="button--wrapper mt-7">
+                    <div
+                        (click)="onPrevious()"
+                        class="py-3 px-4 w-80 text-center text-lg cursor-pointer bg--primary rounded shadow shadow-slate-400 button--hover">
+                        <i class="fas fa-arrow-left mr-2"></i>Previous
+                    </div>
                 </div>
-                <div
-                (click)="onSubmit()"
-                [class.disabled]="!addAccountForm.controls['creditCardBrand'].valid ||
-                        !addAccountForm.controls['creditCardNumber'].valid ||
-                        !addAccountForm.controls['expiration'].valid ||
-                        addAccountForm.controls['accountType'].value !== 'CREDIT_CARD'"
-                class="py-3 px-4 mt-7 w-80 text-center text-lg cursor-pointer bg-slate-300 rounded shadow shadow-slate-400">
-                <i class="fas fa-save mr-2"></i>Save account
+                <div class="button--wrapper mt-7">
+                    <div
+                        (click)="onSubmit()"
+                        [class.disabled]="!addAccountForm.controls['creditCardBrand'].valid ||
+                                !addAccountForm.controls['creditCardNumber'].valid ||
+                                !addAccountForm.controls['expiration'].valid ||
+                                addAccountForm.controls['accountType'].value !== 'CREDIT_CARD'"
+                                class="py-3 px-4 w-80 text-center text-lg cursor-pointer bg--primary rounded shadow shadow-slate-400 button--hover">
+                        <i class="fas fa-save mr-2"></i>Save account
+                    </div>
                 </div>
             </div>
         </div>

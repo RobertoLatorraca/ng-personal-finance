@@ -36,6 +36,10 @@ html {
     background-color: var(--secondary);
 }
 
+.bg--tertiary {
+    background-color: var(--tertiary);
+}
+
 .bg--quaternary {
     background-color: var(--quaternary);
 }
@@ -46,4 +50,8 @@ html {
 
 .text--tertiary {
     color: var(--tertiary);
+}
+
+.text--quaternary {
+    color: var(--quaternary);
 }
